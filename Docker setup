@@ -1,0 +1,138 @@
+#pre-requisite
+sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual
+
+#Install Docker Engine
+sudo apt-get install docker-engine
+
+#Start the microservice
+sudo service docker start
+
+#Pull CentOS image from Docker Hub
+sudo docker pull centos
+
+#create and run the container from CentOS image
+#format is "docker run -it <image-name>"
+sudo docker run -it centos
+
+
+
+#Check whether updated packages are installed
+sudo yum update
+
+#install Docker.repo repo and installs Docker using a Shell script
+curl -fsSl https://get.docker.com | sh
+
+#start Docker
+sudo service docker start
+
+#To pull the Ubuntu image, will try to pull image locally. If not found, pulls image from Docker Hub
+sudo docker run ubuntu
+
+#To run the Ubuntu container
+sudo docker run -it ubuntu
+
+#To check running Docker containers
+sudo docker ps
+
+#To list Docker images
+docker images
+
+#List all Docker containers
+docker ps -a
+
+#To access the container
+#Format is "docker exec -it <container-id>"
+docker exec -it ghdf56789
+
+#To stop a runnning container
+#Format is "docker stop <container-id>"
+docker stop ghdf56789
+
+#Create a new image with the container id
+#Create a new image of the edited container with container-id on local repo (like pushing new changes and creating a new image)
+docker commit ghdf56789 sunil/ubuntu
+
+#Login to Docker 
+docker login
+
+#To push locally created image to Docker Hub
+#Format is "docker push <docker-hub-repo/image-name to push>
+docker push sunil/ubuntu
+
+#To delete a Docker container with the container-id
+#Format is docker rm <container-id>
+docker rm ghdf56789
+
+#To delete a Docker image with a image-id
+#Format is "docker rmi <image-id>
+docker rmi abc12345
+
+# Run different microservcies using docker-compose yaml file
+docker-compose up
+
+#FROM command
+#Install a base image like an operating system, app like python etc
+
+
+#RUN command
+#RUN command is used to install packages like python during *build 
+RUN apt-get install python
+
+#CMD command
+#CMD command will only be passed after container has been created from a image, i.e CMD command is used to pass parameters after run-time only
+CMD echo "This is Docker"
+
+#ENTRYPOINT
+#ENTRYPOINT can overwrite CMD commands and can be used to execute before CMD commands even though CMD is the first thing to execute
+#In example below, "Docker is great" will be executed first rather than "Welcome to Docker"
+CMD "Welcome to Docker"
+ENTRYPOINT "Docker is great"
+
+#RUN vs CMD
+
+#ADD command
+#ADD command is used to copy from one location to other
+#example below
+ADD <source-directory or URL> <destination-directory>
+ADD /my_app_folder1 /my_app_folder2
+
+#ENV command
+#ENV command is used to define environment variables like PATH, variables etc 
+#example below will set the TMP value to 9
+ENV TMP 9
+
+#WORKDIR command
+#WORKDIR command is used to define where to execute those CMD commands like in a specific folder, on a shell etc
+#example
+WORKDIR /PATH/abc/
+
+#EXPOSE command
+#EXPOSE command will expose the container to the outside world or host using port. Port is used to define a process inside a container, say for the front-end app. Port mapping will be done if we use this container on specific host etc 
+#example below
+EXPOSE 8080
+
+#MAINTAINER command
+#MAINTAINER command is used to define like an Author of the image, so that developers can contact you etc (Non-executed)
+#example
+MAINTAINER sunil
+
+#USER command
+#USER command is used to define which container can the user with the specified User ID (UID) can run 
+#example format is "USER <UID>"
+USER 750
+
+#VOLUME command
+#VOLUME command is used to set a custom PATH where the container can store those files. two containers can share the same PATH
+#example format is "VOLUME ["/directory_1", "/directory_2" ]
+VOLUME ["/my_files"]
+
+#To build a custom Docker image called "myapacheimage" from a Docker file
+#example format is "sudo docker build -t <image-name> <Docker-file location>
+sudo docker build -t myapacheimage .
+
+#To run the custom Docker container, we can also add a "app name"
+#example format is "sudo docker run -p <host-port>:<container-port> <image-name>
+sudo docker run -p 80:80 --name=App1 myapacheimage
+
+#Run a Docker container and use port mapping?? (Angular port is 4200)
+docker run -rm -p 4200:4200 --name "App1" myapacheimage

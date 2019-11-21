@@ -1,0 +1,78 @@
+#Mostly used Docker commands
+docker --version
+docker --help
+
+#To pull images from Docker Hub Registry and store in local repo
+docker pull
+
+#To execute a Docker image and create a container
+docker run
+
+#To build a Docker image
+docker build
+
+#To login to Docker container
+docker login
+
+#To push current image to Docker Hub
+docker push
+
+#List all running processes
+docker ps #ps means processes
+
+#list all images from local Docker repo
+docker images
+
+#stop a Docker container
+docker stop
+
+docker kill
+docker rm
+docker rmi
+
+
+docker exec #Exec command is used to access the bash of any container
+#example format is "docker exec -it <container-id> bash
+
+docker commit
+docker import
+
+#Export a Docker container to a TAR file in local system
+#example format is "docker export --output="<tar name to create>" <image-name>??
+docker export --output="latest.tar" myapacheimage
+
+#Commands to perform various operations on Docker containers
+docker container
+
+#Check logs of container with specific container-id
+docker container logs <container-id>
+
+#Kill a Docker container with the specific container-id
+docker container kill <container-id>
+
+#Delete or remove a Docker container
+docker container rm <container-id>
+or
+docker rm <container-id>
+or 
+docker rm <image-name>
+
+#To start a temporary stopped container
+docker container run
+
+#To start a new container
+docker container start
+
+#To stop a container
+docker container stop
+
+docker compose
+docker-compose build
+docker-compose up
+
+docker swarm
+docker service
+
+
+#Add a tag to a Docker image, with the tag myapacheimage and push??
+docker tag myapacheimage sunil/myapacheimage
