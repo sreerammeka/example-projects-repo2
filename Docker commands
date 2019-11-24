@@ -24,18 +24,24 @@ docker ps #ps means processes
 docker images
 
 #stop a Docker container
-docker stop
+docker stop <container-id>
+or
+docker stop <container-name>
 
 docker kill
 docker rm
 docker rmi
 
 
-docker exec #Exec command is used to access the bash of any container
+docker exec #Exec command is used to access the bash of any container 
 #example format is "docker exec -it <container-id> bash
 
+#To create 
 docker commit
-docker import
+
+#To import a tar file of a Docker image in to local system
+#example format is "docker import <path of tar file>
+docker import /Downloads/xyx.tar
 
 #Export a Docker container to a TAR file in local system
 #example format is "docker export --output="<tar name to create>" <image-name>??
@@ -66,13 +72,94 @@ docker container start
 #To stop a container
 docker container stop
 
-docker compose
+#**docker compose commands
+#Build containers in the Docker compose file
 docker-compose build
+
+#Run the containers from the Docker compose file
 docker-compose up
 
-docker swarm
-docker service
+#Run the containers from the Docker compose file in background mode using -d flag
+docker-compose up -d
+
+#Build Images before starting Containers
+docker-compose run --build
+
+#Recreate containers from existing images
+docker-compose up --force-recreate
+
+#Stop and remove/delete all resources (Containers, Volumes, Networks, and Images) created using Docker compose
+docker-compose down
+
+#List the containers created using Docker compose (even not running ones using -a flag)
+docker-compose ps -a
+
+#Display log output of Docker containers
+docker-compose logs
+
+
+
+#docker swarm commands
+
+#Initialize Docker swarm
+docker swarm init
+
+#Join a Docker cluster as manager/node
+#Example is below
+```` docker swarm join --token SWMTKN-1-3pu6hszjas19xyp7ghgosyx9k8atbfcr8p2is99znpy26u2lkl-1awxwuwd3z9j1z3puu7rcgdbx <manager/worker>:2377 ```
+
+#List the Docker nodes in swarm cluster
+docker node ls
+
+#List all running applications on this Docker host
+docker stack ls
+
+#Run the specified Docker compose file
+docker stack deploy -c <composefile> <STACK_NAME>
+
+#List the services associated with an app
+docker stack services <appname>
+
+#List the running containers associated with an app
+docker stack ps <appname>
+
+#Note "alias" is used to commands in short form (i.e "dstr" will perform the function of "docker stack rm", applicable for all examples)
+#To Tear down an application 
+docker stack rm <STACK_NAME>alias dstr='docker stack rm'
+
+#To display Docker Swarm Service list
+docker service ls alias dsls='docker service ls'
+
+#List the tasks of one or more services
+docker service ps <service_name> alias dsp='docker service ps'
+
+# Display Docker Swarm Service logs using "alias"
+alias dsl='docker service logs'
+
+#Remove specific docker swarm service using "alias"
+alias dsr='docker service rm'
+
+#Remove unused Containers, Images, Network, etc using "alias"
+alias sprune='docker system prune'
+
+#Remove unused Volumes using "alias"
+alias vprune='docker volume prune'
+
+#Create Secret
+docker secret create <SECRET_NAME> <SECRET_PATH>
+
+#Create Config
+docker config create <CONFIG_NAME> <CONFIG_FILE_PATH>
+
+#
+docker service create --replicas=2 
 
 
 #Add a tag to a Docker image, with the tag myapacheimage and push??
 docker tag myapacheimage sunil/myapacheimage
+
+#To check the list of Docker volumes
+docker volume ls
+
+#To check the list of Docker networks
+docker network ls

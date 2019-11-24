@@ -134,5 +134,18 @@ sudo docker build -t myapacheimage .
 #example format is "sudo docker run -p <host-port>:<container-port> <image-name>
 sudo docker run -p 80:80 --name=App1 myapacheimage
 
-#Run a Docker container and use port mapping?? (Angular port is 4200)
+#Start and run a new Docker container from pre-existing images and to access the app on local host through port mapping (Angular port is 4200). Removes the container when we exit the session since --rm remove flag is specified.
+#example format is "docker run -rm -p <host-port>:<container-port> --name <name of container to start as> <image to use>
 docker run -rm -p 4200:4200 --name "App1" myapacheimage
+
+#To remove or delete all containers
+#-f to force delete, -q flag is for container IDs
+docker rm -f $(docker ps -aq)
+
+#To remove Docker images from the machine
+docker rmi $(docker images -q)
+
+#To remove all images with dependencies
+docker images -q | xargs docker rmi –f
+
+#
