@@ -163,3 +163,6 @@ docker volume ls
 
 #To check the list of Docker networks
 docker network ls
+
+#To create user-defined Bridge or Overlay networks
+docker network create 
