@@ -165,4 +165,20 @@ docker volume ls
 docker network ls
 
 #To create user-defined Bridge or Overlay networks
-docker network create 
+#Bridge networks allow communication of services present on the same Daemon host
+#To create an bridge network
+docker network create <bridge-network name>
+
+#To create an overlay network
+#Overlay networks allow communication of microservices present on different Daemon hosts
+docker network create -d overlay <overlay-network name>
+
+#To disconnect a running container from user defined bridge
+docker network disconnect <network-name> <container-name>
+
+#To update a existing node from manager to worker, (say from drain mode to active mode???)
+#https://docs.docker.com/engine/reference/commandline/node_update/
+docker node update <node> --role worker
+
+#To promote a worker node to manager node
+docker node promote

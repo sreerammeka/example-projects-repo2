@@ -1,7 +1,7 @@
 #Example Docker compose file to connect python and redis containers
 #Different containers are connected to each other using the "services" section in Docker compose file 
 
-#Docker compose version format to use
+#Docker compose version number to use
 version: '3.6'
 #List all the Services and microservices for your app  
 services:  
@@ -21,7 +21,7 @@ services:
   redis:
     #base image to to use build the redis image 
     image: redis:3.2-alpine
-    #volumes are indepenent storage for your containers and are persistent, data stays forever
+    #volumes are independent storage for your containers and are persistent, data stays forever
     #Volume to use for the Redis service
     volumes:
       - redis_data:/data
